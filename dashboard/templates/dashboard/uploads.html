@@ -27,32 +27,35 @@
       <a href="{% url "portal" student.pk %}">Back to portal</a>
     </li>
   </ul>
-  <hr />
-  <div class="accordion accordion-flush" id="accordionFlushExample">
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="flush-headingManual">
-        <button class="accordion-button collapsed text-muted"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#flush-collapseManual"
-                aria-expanded="false"
-                aria-controls="flush-collapseManual">Manual upload (mostly for staff use)</button>
-      </h2>
-      <div id="flush-collapseManual"
-           class="accordion-collapse collapse"
-           aria-labelledby="flush-headingManual"
-           data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">
-          <p>To manually upload a new file related to this unit, use the following form.</p>
-          <div class="alert alert-warning">
-            <p>
-              Students should NOT submit problem sets through this form.
-              Use the <a href="{% url "submit-pset" student.pk %}">submit unit</a> form instead.
-            </p>
+  {% if request.user.is_staff %}
+    <hr />
+
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingManual">
+          <button class="accordion-button collapsed text-muted"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseManual"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseManual">Manual upload (mostly for staff use)</button>
+        </h2>
+        <div id="flush-collapseManual"
+            class="accordion-collapse collapse"
+            aria-labelledby="flush-headingManual"
+            data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <p>To manually upload a new file related to this unit, use the following form.</p>
+            <div class="alert alert-warning">
+              <p>
+                Students should NOT submit problem sets through this form.
+                Use the <a href="{% url "submit-pset" student.pk %}">submit unit</a> form instead.
+              </p>
+            </div>
+            {% include "generic_form.html" with submit_name="Upload" %}
           </div>
-          {% include "generic_form.html" with submit_name="Upload" %}
         </div>
       </div>
     </div>
-  </div>
+  {% endif %}
 {% endblock layout-content %}

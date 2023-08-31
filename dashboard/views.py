@@ -330,7 +330,7 @@ def uploads(request: HttpRequest, student_pk: int, unit_pk: int) -> HttpResponse
         raise PermissionDenied("This unit is not unlocked yet")
 
     form = None
-    if request.method == "POST":
+    if request.method == "POST" and request.user.is_staff:
         form = NewUploadForm(request.POST, request.FILES)
         if form.is_valid():
             new_upload = form.save(commit=False)
